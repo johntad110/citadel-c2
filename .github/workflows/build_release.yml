@@ -27,7 +27,7 @@ jobs:
           pip install -e .
 
       - name: Run tests
-        run: pytest
+        run: pytest tests/
 
       - name: Build Citadel Server ({{ matrix.os }})
         run: |
@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Phantom Agent ({{ matrix.os }})
         run: |
-          pyinstaller --onefile citadel/agent/phantom.py --name phantom_${{ matrix.os }} --collect-all citadel.protocol --add-data "citadel/agent;citadel/agent"
+          pyinstaller --onefile citadel/agent/phantom.py --name phantom_${{ matrix.os }} --collect-all citadel.protocol
 
       - name: Create Release
         uses: actions/create-release@v1
