@@ -47,11 +47,34 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ github.run_number }}-${{ github.run_attempt }}-${{ matrix.os }}
-          release_name: "Release v${{ github.run_number }}-#${{ github.run_attempt }} ${{ matrix.os }}"
+          release_name: "Release v${{ github.run_number }}-${{ github.run_attempt }} ${{ matrix.os }}"
           draft: false
           prerelease: false
 
-      - name: Upload Citadel Server
+      - name: Upload Citadel Server (Windows)
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/citadel_windows-latest.exe
+          asset_name: citadel_windows-latest.exe
+          asset_content_type: application/octet-stream
+
+      - name: Upload Phantom Agent (Windows)
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/phantom_windows-latest.exe
+          asset_name: phantom_windows-latest.exe
+          asset_content_type: application/octet-stream
+
+      - name: Upload Citadel Server (Unix)
+        if: matrix.os != 'windows-latest'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -61,7 +84,8 @@ jobs:
           asset_name: citadel_${{ matrix.os }}
           asset_content_type: application/octet-stream
 
-      - name: Upload Phantom Agent
+      - name: Upload Phantom Agent (Unix)
+        if: matrix.os != 'windows-latest'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
