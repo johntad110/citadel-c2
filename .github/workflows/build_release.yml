@@ -47,7 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ github.run_number }}-${{ github.run_attempt }}-${{ matrix.os }}
-          release_name: "Release v${{ github.run_number }} ${{ matrix.os }} Attempt #${{ github.run_attempt }}"
+          release_name: "Release v${{ github.run_number }}-#${{ github.run_attempt }} ${{ matrix.os }}"
           draft: false
           prerelease: false
 
