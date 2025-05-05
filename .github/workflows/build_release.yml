@@ -46,8 +46,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ github.run_number }}-${{ github.run_attempt }}
-          release_name: "Release v${{ github.run_number }} Attempt #${{ github.run_attempt }}"
+          tag_name: v${{ github.run_id }}
+          release_name: Release ${{ github.run_id }}
           draft: false
           prerelease: false
 
