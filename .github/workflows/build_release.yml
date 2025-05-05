@@ -51,12 +51,22 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release Assets
+      - name: Upload Citadel Server
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/
-          asset_name: ${{ matrix.os }}_build
+          asset_path: ./dist/citadel_${{ matrix.os }}
+          asset_name: citadel_${{ matrix.os }}
+          asset_content_type: application/octet-stream
+
+      - name: Upload Phantom Agent
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/phantom_${{ matrix.os }}
+          asset_name: phantom_${{ matrix.os }}
           asset_content_type: application/octet-stream
